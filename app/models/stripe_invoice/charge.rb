@@ -1,8 +1,8 @@
 module StripeInvoice
   class Charge < ActiveRecord::Base
-    attr_accessible :id, :invoice_number, :stripe_id, :json, 
-      :owner_id, :date, :amount, :discount, :total, :subtotal, :period_start, 
-      :period_end, :currency 
+    #attr_accessible :id, :invoice_number, :stripe_id, :json, 
+    #  :owner_id, :date, :amount, :discount, :total, :subtotal, :period_start, 
+    #  :period_end, :currency 
     
     alias_attribute :number, :invoice_number
 
