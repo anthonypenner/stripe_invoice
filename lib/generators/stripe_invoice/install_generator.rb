@@ -15,17 +15,17 @@ module StripeInvoice
     # mounts StripeInvoice in the applications routes.rb file
       route "mount StripeInvoice::Engine, at: 'stripe_invoice'"
 
-#       api_key = SecureRandom.uuid
+      api_key = SecureRandom.uuid
 
-#       create_file 'config/initializers/stripe_invoice.rb' do
+      create_file 'config/initializers/stripe_invoice.rb' do
 #       <<-RUBY
 # StripeInvoice.setup do |config|
 #   config.webhooks_api_key = "#{api_key}"
 #   config.subscriptions_owned_by = :user
 # end
 # RUBY
-#       end # create initializer file
-#       say "Your webhooks API key is: #{api_key}"
+      end # create initializer file
+      # say "Your webhooks API key is: #{api_key}"
     end
 
     def copy_migrations
