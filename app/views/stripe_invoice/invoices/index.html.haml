@@ -1,13 +1,12 @@
 .row
-  .col-md-offset-1.col-md-10
-    .well
-      %table.table.table-condensed.table-bordered.table-striped
+  .col-md-12.well
+    %table.table.table-condensed.table-bordered.table-striped
+      %tr
+        %th Invoice Num
+        %th Invoice Date
+        %th Total
+      - @invoices.each do |invoice|
         %tr
-          %th id
-          %th usage period
-          %th total
-        - @invoices.each do |invoice|
-          %tr
-            %td= link_to invoice.id, invoice_path(invoice.id)
-            %td= "#{l(Time.at(invoice.period_start).to_datetime, :format => :long)} - #{l(Time.at(invoice.period_end).to_datetime, :format => :long)}"
-            %td= format_currency((invoice.amount - invoice.total_refund), invoice.currency)
+          %td= link_to invoice.number, invoice_path(invoice.id)
+          %td= "#{l(Time.at(invoice.period_start).to_datetime, :format => :long)} - #{l(Time.at(invoice.period_end).to_datetime, :format => :long)}"
+          %td= format_currency((invoice.amount - invoice.total_refund), invoice.currency)

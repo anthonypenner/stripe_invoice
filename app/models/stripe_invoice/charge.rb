@@ -65,7 +65,8 @@ module StripeInvoice
 
       stripe_invoice = Stripe::Invoice.retrieve stripe_charge[:invoice]
       last_charge = Charge.last
-      new_charge_number = (last_charge ? (last_charge.id * 7) : 1).to_s.rjust(5, '0')
+      # new_charge_number = (last_charge ? (last_charge.id * 7) : 1).to_s.rjust(5, '0')
+      new_charge_number = (last_charge ? (last_charge.id) : 1).to_s.rjust(5, '0')
 
       charge_date = Time.at(stripe_charge[:created]).utc.to_datetime
 
@@ -80,7 +81,9 @@ module StripeInvoice
         currency: stripe_invoice[:currency],
         period_start: stripe_invoice[:period_start],
         period_end: stripe_invoice[:period_end],
-        invoice_number: "#{charge_date.year}-#{new_charge_number}",
+        # invoice_number: "#{charge_date.year}-#{new_charge_number}",
+        invoice_number: "DOJO-#{charge_date.year}-#{new_charge_number}",
+
         json: stripe_charge
       })
 

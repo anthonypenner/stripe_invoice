@@ -29,8 +29,8 @@ prawn_document(:page_layout => :landscape) do |pdf|
     rows = [['Subtotal', "#{format_currency(@invoice.subtotal, @invoice.currency)}"]]
 
     #Refund details
-    @invoice.refunds.each do |refund|
-      rows << ["Refund", "#{format_currency(refund.amount, @invoice.currency)}"]
+    @invoice.refunds[:data].each do |refund|
+      rows << ["Refund", "#{format_currency(refund[:amount], @invoice.currency)}"]
     end
 
     rows << ["Total", "#{format_currency((@invoice.amount - @invoice.total_refund), @invoice.currency)}"]
