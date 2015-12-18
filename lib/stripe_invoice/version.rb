@@ -1,3 +1,3 @@
 module StripeInvoice
-  VERSION = "2.0.0"
+  VERSION = "1.5.1"
 end
