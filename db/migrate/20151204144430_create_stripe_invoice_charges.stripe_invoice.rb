@@ -16,8 +16,8 @@ class CreateStripeInvoiceCharges < ActiveRecord::Migration
       t.integer :discount
       t.integer :period_start
       t.integer :period_end
-      t.text    :charge_json
-      t.text    :invoice_json
+      t.json    :charge_json
+      t.json    :invoice_json
       t.timestamps
     end
   end

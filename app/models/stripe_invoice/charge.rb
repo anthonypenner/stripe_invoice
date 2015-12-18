@@ -6,10 +6,15 @@ module StripeInvoice
 
     alias_attribute :number, :invoice_number
 
-    serialize :json, JSON
+    serialize :charge_json, JSON
+    serialize :invoice_json, JSON
 
-    def indifferent_json
-     @json ||= charge_json.with_indifferent_access
+    def indifferent_charge_json
+     @charge_json ||= charge_json.with_indifferent_access
+    end
+
+    def indifferent_invoice_json
+     @invoice_json ||= invoice_json.with_indifferent_access
     end
 
     def datetime
@@ -21,19 +26,19 @@ module StripeInvoice
     end
 
     def billing_address
-      indifferent_json[:metadata][:billing_address] || owner.try(:billing_address)
+      indifferent_charge_json[:metadata][:billing_address] || owner.try(:billing_address)
     end
 
     def tax_number
-      indifferent_json[:metadata][:tax_number] || owner.try(:tax_number)
+      indifferent_charge_json[:metadata][:tax_number] || owner.try(:tax_number)
     end
 
     def country
-      indifferent_json[:metadata][:country] || owner.try(:country)
+      indifferent_charge_json[:metadata][:country] || owner.try(:country)
     end
 
     def refunds
-      indifferent_json[:refunds]
+      indifferent_charge_json[:refunds]
     end
 
     def total_refund
