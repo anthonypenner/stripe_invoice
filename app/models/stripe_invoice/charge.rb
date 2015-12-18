@@ -84,7 +84,7 @@ module StripeInvoice
         # invoice_number: "#{charge_date.year}-#{new_charge_number}",
         invoice_number: "DOJO-#{charge_date.year}-#{new_charge_number}",
 
-        charge_json: stripe_charge
+        charge_json: stripe_charge,
         invoice_json: stripe_invoice
       })
 
