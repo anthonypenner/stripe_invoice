@@ -9,7 +9,7 @@ module StripeInvoice
     serialize :json, JSON
 
     def indifferent_json
-     @json ||= json.with_indifferent_access
+     @json ||= charge_json.with_indifferent_access
     end
 
     def datetime
@@ -66,7 +66,7 @@ module StripeInvoice
       stripe_invoice = Stripe::Invoice.retrieve stripe_charge[:invoice]
       last_charge = Charge.last
       # new_charge_number = (last_charge ? (last_charge.id * 7) : 1).to_s.rjust(5, '0')
-      new_charge_number = (last_charge ? (last_charge.id) : 1).to_s.rjust(5, '0')
+      new_charge_number = (last_charge ? (last_charge.id+1) : 1).to_s.rjust(5, '0')
 
       charge_date = Time.at(stripe_charge[:created]).utc.to_datetime
 
@@ -84,7 +84,8 @@ module StripeInvoice
         # invoice_number: "#{charge_date.year}-#{new_charge_number}",
         invoice_number: "DOJO-#{charge_date.year}-#{new_charge_number}",
 
-        json: stripe_charge
+        charge_json: stripe_charge
+        invoice_json: stripe_invoice
       })
 
       puts "Charge saved: #{charge.id}"
