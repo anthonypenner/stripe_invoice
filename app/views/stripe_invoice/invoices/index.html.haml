@@ -8,5 +8,5 @@
       - @invoices.each do |invoice|
         %tr
           %td= link_to invoice.number, invoice_path(invoice.id)
-          %td= "#{l(Time.at(invoice.period_start).to_datetime, :format => :long)} - #{l(Time.at(invoice.period_end).to_datetime, :format => :long)}"
+          %td= "#{l(Time.at(invoice.date).to_datetime, :format => :short)}"
           %td= format_currency((invoice.amount - invoice.total_refund), invoice.currency)

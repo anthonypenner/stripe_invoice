@@ -41,6 +41,10 @@ module StripeInvoice
       indifferent_charge_json[:refunds]
     end
 
+    def invoice_line_items
+      indifferent_invoice_json[:lines]
+    end
+
     def total_refund
       refunds[:data].inject(0){ |total,refund| total + refund[:amount]}
     end

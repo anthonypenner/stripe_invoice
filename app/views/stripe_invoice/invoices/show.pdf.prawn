@@ -33,7 +33,7 @@ prawn_document(:page_layout => :landscape) do |pdf|
       rows << ["Refund", "#{format_currency(refund[:amount], @invoice.currency)}"]
     end
 
-    rows << ["Total", "#{format_currency((@invoice.amount - @invoice.total_refund), @invoice.currency)}"]
+    rows << ["Total", "#{format_currency((@invoice.total - @invoice.total_refund), @invoice.currency)}"]
     pdf.table(rows,:cell_style => { :border_width => 0,:border_color=> 'C1C1C1', :width=>'540' }) do |table|
         table.column(0..1).style(:align => :right)
         table.column(0).width = 300
@@ -43,21 +43,21 @@ prawn_document(:page_layout => :landscape) do |pdf|
     pdf.move_down 30
 
     #Line Items Container
-    pdf.font_size(17.5) { pdf.text "Line Items", :style => :bold }
-    pdf.move_down 10
+#    pdf.font_size(17.5) { pdf.text "Line Items", :style => :bold }
+#    pdf.move_down 10
 
-    line_items = [["#{pluralize(plan_duration_in_month(@invoice), 'month')} LinksSpy.com subscription [plan: #{@invoice["json"]["lines"]["data"][0]["plan"]["name"]}]", "#{pdf_date_format(@invoice.period_start)} - #{pdf_date_format(@invoice.period_end)}", "#{format_currency(( @invoice.amount - @invoice.total_refund), @invoice.currency)}"]]
-    pdf.font_size = 14
+#    line_items = [["#{pluralize(plan_duration_in_month(@invoice), 'month')} dojo.ministryoftesting.com subscription [plan: #{@invoice["json"]["lines"]["data"][0]["plan"]["name"]}]", "#{pdf_date_format(@invoice.period_start)} - #{pdf_date_format(@invoice.period_end)}", "#{format_currency(( @invoice.total - @invoice.total_refund), @invoice.currency)}"]]
+#    pdf.font_size = 14
 
-    pdf.table(line_items,:cell_style => { :border_width => 0,:border_color=> 'C1C1C1', :width=>'540' }) do |table|
-        table.column(0).style(:align => :left)
-        table.column(1).style(:align => :center)
-        table.column(2).style(:align => :right)
-        table.column(0).width = 330
-        table.column(1).width = 150
-        table.column(2).width = 60
-        table.row(0).style(:border_width => 1, :borders => [:top], :color => 'dddddd')
-    end
+#    pdf.table(line_items,:cell_style => { :border_width => 0,:border_color=> 'C1C1C1', :width=>'540' }) do |table|
+#        table.column(0).style(:align => :left)
+#        table.column(1).style(:align => :center)
+#        table.column(2).style(:align => :right)
+#        table.column(0).width = 330
+#        table.column(1).width = 150
+#        table.column(2).width = 60
+#        table.row(0).style(:border_width => 1, :borders => [:top], :color => 'dddddd')
+#    end
 
     pdf.render_file ::Rails.root.join('tmp','invoice.pdf')
 end

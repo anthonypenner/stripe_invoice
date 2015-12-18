@@ -3,14 +3,11 @@
     %td Name
     %td value
   %tr
-    %td Id
+    %td Invoice Number
     %td= @invoice.number
   %tr
-    %td Period Start
+    %td Invoice Date
     %td= @invoice.period_start
-  %tr
-    %td Period End
-    %td= @invoice.period_end
   %tr
     %td Subtotal
     %td= format_currency(@invoice.subtotal, @invoice.currency)
@@ -18,10 +15,12 @@
     %tr
       %td discount
       %td= format_currency(@invoice.discount, @invoice.currency)
+
   - @invoice.refunds[:data].each do |refund|
     %tr
       %td= 'Refund'
       %td= format_currency(refund[:amount], @invoice.currency)
+
   %tr
     %td Total
-    %td= format_currency((@invoice.amount - @invoice.total_refund), @invoice.currency)
+    %td= format_currency((@invoice.total - @invoice.total_refund), @invoice.currency)
