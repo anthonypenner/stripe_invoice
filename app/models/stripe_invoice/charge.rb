@@ -62,7 +62,7 @@ module StripeInvoice
       # for existing invoices just update and be done
       if charge.present?
         puts "[#{self.class.name}##{__method__.to_s}] updating data for #{stripe_charge.id}"
-        charge.update_attribute(:json, stripe_charge)
+        # charge.update_attribute(:json, stripe_charge)
         return charge
       end
 
