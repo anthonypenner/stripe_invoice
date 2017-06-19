@@ -6,9 +6,9 @@
 namespace :stripe_invoice do
   task :generate => :environment do
     #StripeInvoice::Charge.all.each(&:destroy)
-    
-    Stripe::Charge.each do |charge|
-      begin 
+
+    Stripe::Charge.list.each do |charge|
+      begin
       StripeInvoice::Charge.create_from_stripe charge
       rescue => e
         puts "skipping charge for customer_id: #{charge.customer}"
@@ -16,7 +16,7 @@ namespace :stripe_invoice do
       end # begin/rescue/end
     end
   end # task :generate
-  
+
   task(:tax_report => :environment) do
     #Delayed::Job.enqueue StripeInvoice::DJTaxReport.new
     StripeInvoice::DJTaxReport.new.perform
