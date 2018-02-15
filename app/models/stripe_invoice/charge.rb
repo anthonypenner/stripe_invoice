@@ -46,7 +46,7 @@ module StripeInvoice
     end
 
     def total_refund
-      return 0 if refunds[:data].blank?
+      return 0 if refunds.blank? || refunds[:data].blank?
       refunds[:data].inject(0){ |total,refund| total + refund[:amount]}
     end
 
